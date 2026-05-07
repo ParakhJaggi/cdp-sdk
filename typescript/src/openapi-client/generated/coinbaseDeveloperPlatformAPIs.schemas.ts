@@ -2776,6 +2776,130 @@ export interface SignEndUserSolMessageRule {
   criteria: SignEndUserSolMessageCriteria;
 }
 
+export type SendEndUserEvmAssetCriteriaItem =
+  | EvmNetworkCriterion
+  | EvmDataCriterion
+  | NetUSDChangeCriterion;
+
+/**
+ * A schema for specifying criteria for the sendEndUserEvmAsset operation.
+ */
+export type SendEndUserEvmAssetCriteria = SendEndUserEvmAssetCriteriaItem[];
+
+/**
+ * Whether matching the rule will cause the request to be rejected or accepted.
+ */
+export type SendEndUserEvmAssetRuleAction =
+  (typeof SendEndUserEvmAssetRuleAction)[keyof typeof SendEndUserEvmAssetRuleAction];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SendEndUserEvmAssetRuleAction = {
+  reject: "reject",
+  accept: "accept",
+} as const;
+
+/**
+ * The operation to which the rule applies. Every element of the `criteria` array must match the specified operation.
+ */
+export type SendEndUserEvmAssetRuleOperation =
+  (typeof SendEndUserEvmAssetRuleOperation)[keyof typeof SendEndUserEvmAssetRuleOperation];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SendEndUserEvmAssetRuleOperation = {
+  sendEndUserEvmAsset: "sendEndUserEvmAsset",
+} as const;
+
+export interface SendEndUserEvmAssetRule {
+  /** Whether matching the rule will cause the request to be rejected or accepted. */
+  action: SendEndUserEvmAssetRuleAction;
+  /** The operation to which the rule applies. Every element of the `criteria` array must match the specified operation. */
+  operation: SendEndUserEvmAssetRuleOperation;
+  criteria: SendEndUserEvmAssetCriteria;
+}
+
+export type SendEndUserSolAssetCriteriaItem =
+  | SplAddressCriterion
+  | SplValueCriterion
+  | SolDataCriterion
+  | SolNetworkCriterion;
+
+/**
+ * A schema for specifying criteria for the sendEndUserSolAsset operation.
+ */
+export type SendEndUserSolAssetCriteria = SendEndUserSolAssetCriteriaItem[];
+
+/**
+ * Whether matching the rule will cause the request to be rejected or accepted.
+ */
+export type SendEndUserSolAssetRuleAction =
+  (typeof SendEndUserSolAssetRuleAction)[keyof typeof SendEndUserSolAssetRuleAction];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SendEndUserSolAssetRuleAction = {
+  reject: "reject",
+  accept: "accept",
+} as const;
+
+/**
+ * The operation to which the rule applies. Every element of the `criteria` array must match the specified operation.
+ */
+export type SendEndUserSolAssetRuleOperation =
+  (typeof SendEndUserSolAssetRuleOperation)[keyof typeof SendEndUserSolAssetRuleOperation];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SendEndUserSolAssetRuleOperation = {
+  sendEndUserSolAsset: "sendEndUserSolAsset",
+} as const;
+
+export interface SendEndUserSolAssetRule {
+  /** Whether matching the rule will cause the request to be rejected or accepted. */
+  action: SendEndUserSolAssetRuleAction;
+  /** The operation to which the rule applies. Every element of the `criteria` array must match the specified operation. */
+  operation: SendEndUserSolAssetRuleOperation;
+  criteria: SendEndUserSolAssetCriteria;
+}
+
+export type CreateEndUserEvmSwapCriteriaItem =
+  | EvmNetworkCriterion
+  | EvmDataCriterion
+  | NetUSDChangeCriterion;
+
+/**
+ * A schema for specifying criteria for the createEndUserEvmSwap operation.
+ */
+export type CreateEndUserEvmSwapCriteria = CreateEndUserEvmSwapCriteriaItem[];
+
+/**
+ * Whether matching the rule will cause the request to be rejected or accepted.
+ */
+export type CreateEndUserEvmSwapRuleAction =
+  (typeof CreateEndUserEvmSwapRuleAction)[keyof typeof CreateEndUserEvmSwapRuleAction];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateEndUserEvmSwapRuleAction = {
+  reject: "reject",
+  accept: "accept",
+} as const;
+
+/**
+ * The operation to which the rule applies. Every element of the `criteria` array must match the specified operation.
+ */
+export type CreateEndUserEvmSwapRuleOperation =
+  (typeof CreateEndUserEvmSwapRuleOperation)[keyof typeof CreateEndUserEvmSwapRuleOperation];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CreateEndUserEvmSwapRuleOperation = {
+  createEndUserEvmSwap: "createEndUserEvmSwap",
+} as const;
+
+export interface CreateEndUserEvmSwapRule {
+  /** Whether matching the rule will cause the request to be rejected or accepted. */
+  action: CreateEndUserEvmSwapRuleAction;
+  /** The operation to which the rule applies. Every element of the `criteria` array must match the specified operation. */
+  operation: CreateEndUserEvmSwapRuleOperation;
+  criteria: CreateEndUserEvmSwapCriteria;
+}
+
 /**
  * A rule that limits the behavior of an account.
  */
@@ -2797,7 +2921,10 @@ export type Rule =
   | SignEndUserEvmHashRule
   | SignEndUserSolTransactionRule
   | SendEndUserSolTransactionRule
-  | SignEndUserSolMessageRule;
+  | SignEndUserSolMessageRule
+  | SendEndUserEvmAssetRule
+  | SendEndUserSolAssetRule
+  | CreateEndUserEvmSwapRule;
 
 /**
  * The scope of the policy. Only one project-level policy can exist at any time.
@@ -3890,6 +4017,11 @@ export const X402SupportedPaymentKindNetwork = {
   "eip155:137": "eip155:137",
   "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp": "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp",
   "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+  avalanche: "avalanche",
+  arbitrum: "arbitrum",
+  "arbitrum-sepolia": "arbitrum-sepolia",
+  world: "world",
+  "world-sepolia": "world-sepolia",
 } as const;
 
 /**
@@ -4112,6 +4244,54 @@ export interface OnrampUserLimit {
   limit: string;
   /** The remaining amount or count available. */
   remaining: string;
+}
+
+/**
+ * Date of birth.
+ */
+export interface DateOfBirth {
+  /**
+   * Day of birth (01-31).
+   * @minLength 2
+   * @maxLength 2
+   * @pattern ^[0-9]{2}$
+   */
+  day?: string;
+  /**
+   * Month of birth (01-12).
+   * @minLength 2
+   * @maxLength 2
+   * @pattern ^[0-9]{2}$
+   */
+  month?: string;
+  /**
+   * Year of birth (four digits).
+   * @minLength 4
+   * @maxLength 4
+   * @pattern ^[0-9]{4}$
+   */
+  year?: string;
+}
+
+/**
+ * Populate the properties that correspond to the `fields` array from the user's `OnrampLimitUpgradeOption`.
+ */
+export interface OnrampLimitUpgradeIdentityFields {
+  /** Last 4 digits of the Social Security Number (no dashes or spaces). */
+  ssnLast4?: string;
+  /** Date of birth. */
+  dateOfBirth?: DateOfBirth;
+}
+
+/**
+ * Request to request a limits upgrade for a user.
+ */
+export interface OnrampLimitUpgradeRequest {
+  /** The user identifier value. For `phone_number` type, this must be in E.164 format. */
+  userId: string;
+  userIdType: OnrampUserIdType;
+  /** Populate the properties that correspond to the `fields` array from the user's `OnrampLimitUpgradeOption`. */
+  fields: OnrampLimitUpgradeIdentityFields;
 }
 
 /**
@@ -4356,6 +4536,31 @@ export type ListEndUsers200 = ListEndUsers200AllOf & ListResponse;
 export type ValidateEndUserAccessTokenBody = {
   /** The access token in JWT format to verify. */
   accessToken: string;
+};
+
+export type LookupEndUserParams = {
+  /**
+   * The email address to search for across all email-based authentication methods.
+   */
+  email?: string;
+  /**
+   * The OAuth provider to search by. Must be provided together with oauthSubject.
+   */
+  oauthProvider?: OAuth2ProviderType;
+  /**
+   * The OAuth subject (the `sub` claim from the provider's ID token). Must be provided together with oauthProvider.
+   */
+  oauthSubject?: string;
+  /**
+   * The E.164-formatted phone number to search for. Must be URL-encoded when passed as a query parameter (e.g. `+14155552671` → `%2B14155552671`).
+   * @pattern ^\+[1-9]\d{1,14}$
+   */
+  phoneNumber?: string;
+};
+
+export type LookupEndUser200 = {
+  /** The list of end users matching the lookup. */
+  endUsers: EndUser[];
 };
 
 export type AddEndUserEvmAccountBody = { [key: string]: unknown };
@@ -4616,6 +4821,14 @@ export type GetDelegationForEndUserParams = {
 export type GetDelegationForEndUser200 = {
   /** The date until which the delegation is valid. */
   expiresAt: string;
+};
+
+export type RevokeDelegationForEndUserParams = {
+  /**
+   * The ID of the CDP Project. Required for end users authenticated using custom auth (i.e. a non-CDP JWT provider).
+   * @pattern ^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+   */
+  projectID?: ProjectIDOptionalParameter;
 };
 
 export type RevokeDelegationForEndUserBody = {
